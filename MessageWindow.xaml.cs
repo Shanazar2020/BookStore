@@ -15,18 +15,15 @@ using System.Windows.Shapes;
 namespace BookStore
 {
     /// <summary>
-    /// Interaction logic for Cart.xaml
+    /// Interaction logic for MessageWindow.xaml
     /// </summary>
-    public partial class Cart : Window
+    public partial class MessageWindow : Window
     {
-        public Cart()
+        public MessageWindow(string message, string caption)
         {
             InitializeComponent();
-        }
-
-        private void goBackBtn_Click(object sender, RoutedEventArgs e)
-        {
-
+            messageBoxCaption.Content = caption;
+            messageLbl.Content = message;
         }
     }
 }

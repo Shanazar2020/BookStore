@@ -33,6 +33,7 @@ namespace BookStore
         {
             Store store = new Store();
             store.Show();
+            this.Close();
         }
     }
 }

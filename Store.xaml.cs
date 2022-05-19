@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using System.Threading;
 namespace BookStore
 {
     /// <summary>
@@ -24,10 +24,23 @@ namespace BookStore
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void go2Cart_Click(object sender, RoutedEventArgs e)
         {
             Cart cart = new Cart();
             cart.Show();
+            this.Close(); // close current window
+        }
+
+        private void logOutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageWindow message = new MessageWindow("Thank you for visiting us!", "Logging out");
+            message.Show();
+            MainWindow main = new MainWindow();
+            Thread.Sleep(2000);
+            this.Close();
+            message.Close();
+            main.Show();
+            
         }
     }
 }
