@@ -28,5 +28,11 @@ namespace BookStore
                 ConfigurationManager.ConnectionStrings["BookStore.Properties.Settings.BookStoreConnectionString"].ConnectionString;
             System.Console.WriteLine(connectionString);
         }
+
+        private void login_Click(object sender, RoutedEventArgs e)
+        {
+            Store store = new Store();
+            store.Show();
+        }
     }
 }
