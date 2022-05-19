@@ -15,19 +15,13 @@ using System.Windows.Shapes;
 namespace BookStore
 {
     /// <summary>
-    /// Interaction logic for Store.xaml
+    /// Interaction logic for Cart.xaml
     /// </summary>
-    public partial class Store : Window
+    public partial class Cart : Window
     {
-        public Store()
+        public Cart()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Cart cart = new Cart();
-            cart.Show();
         }
     }
 }
