@@ -34,11 +34,11 @@ namespace BookStore
         private void logOutBtn_Click(object sender, RoutedEventArgs e)
         {
             MessageWindow message = new MessageWindow("Thank you for visiting us!", "Logging out");
-            message.Show();
+            //message.Show();
             MainWindow main = new MainWindow();
-            Thread.Sleep(2000);
+
             this.Close();
-            message.Close();
+            
             main.Show();
             
         }

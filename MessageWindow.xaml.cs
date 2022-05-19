@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using System.Threading;
 namespace BookStore
 {
     /// <summary>
@@ -19,11 +19,16 @@ namespace BookStore
     /// </summary>
     public partial class MessageWindow : Window
     {
-        public MessageWindow(string message, string caption)
+        public MessageWindow(string message, string caption="", int sleepTime = 2000)
         {
             InitializeComponent();
             messageBoxCaption.Content = caption;
             messageLbl.Content = message;
+
+            this.Show();
+            Thread.Sleep(sleepTime);
+            this.Close();
+
         }
     }
 }
