@@ -37,7 +37,6 @@ namespace BookStore
             using(SqlConnection connection = new SqlConnection(connectionString)){
                 connection.Open();
 
-                MessageBox.Show("In the login");
                 if( checkLoginData(username.Text.ToString(), password.Password.ToString(), connection))
                 {   
                     Client client = getClientObj(username.Text.ToString(), password.Password.ToString(), connection);
@@ -49,14 +48,15 @@ namespace BookStore
                     }
                     else { 
                         MessageWindow mess = new MessageWindow("Internal Problem arosed. Please try later!", "Internal Error");
-                        username.Clear();
-                        password.Clear();
+                        
                     }
                 }
                 else
                 {
-                    MessageBox.Show("You are fucked up.");
+                    MessageBox.Show("Name or password was incorrect. Please check and try again! Or register for a new user", "No user found", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                username.Clear();
+                password.Clear();
 
             }
 
