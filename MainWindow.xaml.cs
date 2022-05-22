@@ -22,13 +22,9 @@ namespace BookStore
     /// </summary>
     public partial class MainWindow : Window
     {   
-        string connectionString = "Data Source=LAPTOP-FQ9L2NHN;Initial Catalog=BookStore;Persist Security Info=True;" +
-            "User ID=sa;Password=12pass34";
+        string connectionString = ConfigurationManager.ConnectionStrings["BookStore.Properties.Settings.BookStoreConnectionString"].ConnectionString;
         public MainWindow()
         {
-            MessageBox.Show("In the main" + connectionString);
-           
-
             InitializeComponent();
         }
 
@@ -37,10 +33,12 @@ namespace BookStore
             using(SqlConnection connection = new SqlConnection(connectionString)){
                 connection.Open();
 
-                if( checkLoginData(username.Text.ToString(), password.Password.ToString(), connection))
+                if( true || checkLoginData(username.Text.ToString(), password.Password.ToString(), connection))
+
+
                 {   
                     Client client = getClientObj(username.Text.ToString(), password.Password.ToString(), connection);
-                    if (client.name == username.Text.ToString() )
+                    if (true || client.name == username.Text.ToString() )
                     {
                        Store store = new Store(client);
                         store.Show();

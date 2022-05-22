@@ -1,4 +1,5 @@
 ﻿using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,8 +13,8 @@ namespace BookStore
         public string name { get; set; }
         public string password { get; set; }
 
-        public List<Book> books { get; set; }
-        public List<Book> newSelectedBooks { get; set; }
+        public IObservable<Book> books { get; set; }
+        //public List<Book> newSelectedBooks { get; set; }
 
         public Client(int id=-1, string name="\0", string pass="\0")
         {
