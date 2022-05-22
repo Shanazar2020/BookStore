@@ -42,7 +42,7 @@ namespace BookStore
                     Client client = getClientObj(username.Text.ToString(), password.Password.ToString(), connection);
                     if (client.name == username.Text.ToString() )
                     {
-                       Store store = new Store();
+                       Store store = new Store(client);
                         store.Show();
                         this.Close();
                     }
@@ -68,7 +68,6 @@ namespace BookStore
             string command = String.Format( "Select * from Client where nameSurname='{0}' and loginPassword='{1}'", username, pass);
             SqlCommand oCmnd= new SqlCommand(command, connection);
             
-            MessageBox.Show("Sql command created: "+oCmnd.CommandText);
             return oCmnd;
         }
 
@@ -98,6 +97,61 @@ namespace BookStore
             }
         }
         //private void loadBooks(SqlConnection conn)
+        private int insertNewUser(string username, string password, SqlConnection conn)
+        {
+            try {
+                SqlCommand insertUserCmnd = new SqlCommand(String.Format("Insert into Client values ('{0}', {1});SELECT CAST(scope_identity() AS int)"
+                                                                         ,username, password),
+                                                           conn);
+
+                return (Int32)insertUserCmnd.ExecuteScalar();
+             }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message.ToString());
+                return -1;
+            }
+
+
+        } 
+        private void register_Click(object sender, RoutedEventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand sqlCommand = new SqlCommand(String.Format("Select * from Client where nameSurname='{0}'", username.Text), connection);
+                    
+                    using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader()) {
+                        if ( sqlDataReader.HasRows && sqlDataReader.Read())
+                        {
+                            MessageBox.Show("User with provided username already exists.\nPlease try different username.", "Invalid username.", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        else
+                        {
+                            sqlDataReader.Close();
+                            int newUserId = insertNewUser(username.Text, password.Password.ToString(), connection);
+                            if( newUserId != -1)
+                            {
+                                Client client = new Client(newUserId, username.Text, password.Password.ToString());
+                                Store store = new Store(client);
+                                store.Show();
+                                this.Close();
+
+                            }
+                            else
+                            {
+                                MessageBox.Show("Could not register.\nPlease try again later!", "Internal error", MessageBoxButton.OK, MessageBoxImage.Error); 
+                            }
+                        }   
+                    }
+
+                }catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);    
+                }
+            }
+        }
 
     }
 }

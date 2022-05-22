@@ -21,9 +21,9 @@ namespace BookStore
     /// </summary>
     public partial class Store : Window
     {
-        public Store()
+        public Store(Client client)
         {
-            
+            MessageBox.Show("Client name: ", client.name);
             InitializeComponent();
         }
 

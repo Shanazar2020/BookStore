@@ -14,6 +14,6 @@
         <Label Content="Password" />
         <PasswordBox Name="password" FontSize="18" />
         <Button Name="login" Content="Login" Margin="60 10" FontSize="14" Width="100" Click="login_Click" />
-        <Button Name="register" Content="Register" Margin="60 10" FontSize="14" Width="100" />
+        <Button Name="register" Content="Register" Margin="60 10" FontSize="14" Width="100" Click="register_Click"/>
     </StackPanel>
 </Window>
