@@ -7,8 +7,9 @@ using System.Windows.Media.Imaging;  //BitmapImage namespace
 
 namespace BookStore
 {
-    internal class Book
+    public class Book
     {
+        
         public string Id { get; set; }
         public string Title { get; set; }  
         public double price { get; set; }

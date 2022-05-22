@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Threading;
+using System.Data.SqlClient;
+
 namespace BookStore
 {
     /// <summary>
@@ -21,6 +23,7 @@ namespace BookStore
     {
         public Store()
         {
+            
             InitializeComponent();
         }
 
