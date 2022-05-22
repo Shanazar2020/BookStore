@@ -22,94 +22,82 @@ namespace BookStore
     /// </summary>
     public partial class MainWindow : Window
     {   
-        public static SqlConnection connection = new SqlConnection("Data Source=LAPTOP-FQ9L2NHN;Initial Catalog=BookStore;Persist Security Info=True;" +
-            "User ID=sa;Password=12pass34");
+        string connectionString = "Data Source=LAPTOP-FQ9L2NHN;Initial Catalog=BookStore;Persist Security Info=True;" +
+            "User ID=sa;Password=12pass34";
         public MainWindow()
         {
-           // MessageBox.Show("In the main");
+            MessageBox.Show("In the main" + connectionString);
            
-            try {
-                connection.Open();
-            }
-            catch (SqlException ex) {
-                MessageWindow mess = new BookStore.MessageWindow("Sorry for incon", "Internal Error");
-            }
-            
-            //App.connection.Open();
-            //loadBooks(App.connection);
+
             InitializeComponent();
         }
 
         private void login_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("In the login");
-            if( checkLoginData(username.Text.ToString(), password.Password.ToString()))
-            {   
-                Store store = new Store();
-                store.Show();
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("You are fucked up.");
+            using(SqlConnection connection = new SqlConnection(connectionString)){
+                connection.Open();
+
+                MessageBox.Show("In the login");
+                if( checkLoginData(username.Text.ToString(), password.Password.ToString(), connection))
+                {   
+                    Client client = getClientObj(username.Text.ToString(), password.Password.ToString(), connection);
+                    if (client.name == username.Text.ToString() )
+                    {
+                       Store store = new Store();
+                        store.Show();
+                        this.Close();
+                    }
+                    else { 
+                        MessageWindow mess = new MessageWindow("Internal Problem arosed. Please try later!", "Internal Error");
+                        username.Clear();
+                        password.Clear();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("You are fucked up.");
+                }
+
             }
 
             
         }
 
-        private SqlCommand buildUserCommand(string username, string pass)
+        private SqlCommand buildUserCommand(string username, string pass, SqlConnection connection)
         {
-            string command = "Select * from Client where nameSurname=@usrname and loginPassword=@pass";
+            string command = String.Format( "Select * from Client where nameSurname='{0}' and loginPassword='{1}'", username, pass);
             SqlCommand oCmnd= new SqlCommand(command, connection);
-            oCmnd.Parameters.AddWithValue("@usrname", username);
-            oCmnd.Parameters.AddWithValue("@pass", pass);
-
+            
+            MessageBox.Show("Sql command created: "+oCmnd.CommandText);
             return oCmnd;
         }
 
-        private bool checkLoginData(string username, string pass)
+        private bool checkLoginData(string username, string pass, SqlConnection connection)
         {
-            SqlCommand findUserCmnd = buildUserCommand(username, pass);
-            SqlDataReader sqlDataReader = findUserCmnd.ExecuteReader();
+            SqlCommand findUserCmnd = buildUserCommand(username, pass, connection);
+            using (SqlDataReader sqlDataReader = findUserCmnd.ExecuteReader()) {  
 
-            return (sqlDataReader.HasRows && sqlDataReader.Read());
+                return (sqlDataReader.HasRows && sqlDataReader.Read());
+            }
         }
 
-        private Client getClientObj(string username, string pass)
+        private Client getClientObj(string username, string pass, SqlConnection connection)
         {
-            SqlCommand findUserCmnd = buildUserCommand(username, pass);
-            SqlDataReader sqlDataReader = findUserCmnd.ExecuteReader();
+            SqlCommand findUserCmnd = buildUserCommand(username, pass, connection);
+            using ( SqlDataReader sqlDataReader = findUserCmnd.ExecuteReader()) { 
 
-            if (sqlDataReader.HasRows && sqlDataReader.Read())
-            {
-                string id = sqlDataReader.GetString(0);
-                string username = sqlDataReader.GetString(1);
-                string password = sqlDataReader.GetString(2);
-
-                Client client = new Client(id, username, password);
-                return client;
-            }
-            else
-            {
-                return null;
-            }
-
-        private void loadBooks(SqlConnection conn)
-        {
-            MessageBox.Show("in the load books");
-            SqlCommand loadCommand = new SqlCommand("Select * from Book", conn);
-            SqlDataReader reader = loadCommand.ExecuteReader();
-            if (reader.HasRows && reader.Read())
-            {
-                MessageBox.Show(reader.GetString(0));
-                MessageBox.Show(reader.GetString(1));
-                MessageBox.Show(reader.GetString(2));
-                MessageBox.Show(reader.GetString(3));
+                if (sqlDataReader.HasRows && sqlDataReader.Read())
+                {
+                    int id = sqlDataReader.GetInt32(0);
                
+                    Client client = new Client(id, username, pass);
+                    return client;
+                }
+            
+                return new Client();
             }
-
-         
-
         }
+        //private void loadBooks(SqlConnection conn)
+
     }
 }

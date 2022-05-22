@@ -8,14 +8,14 @@ namespace BookStore
 {
     public class Client
     {
-        public string id { get; set; }
+        public int id { get; set; }
         public string name { get; set; }
         public string password { get; set; }
 
         public List<Book> books { get; set; }
         public List<Book> newSelectedBooks { get; set; }
 
-        public Client(string id, string name, string pass)
+        public Client(int id=-1, string name="\0", string pass="\0")
         {
             this.id = id;
             this.name = name;
