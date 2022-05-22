@@ -21,6 +21,7 @@ namespace BookStore
     {
         public MessageWindow(string message, string caption="", int sleepTime = 2000)
         {
+            
             InitializeComponent();
             messageBoxCaption.Content = caption;
             messageLbl.Content = message;

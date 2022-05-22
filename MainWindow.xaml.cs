@@ -33,12 +33,12 @@ namespace BookStore
             using(SqlConnection connection = new SqlConnection(connectionString)){
                 connection.Open();
 
-                if( true || checkLoginData(username.Text.ToString(), password.Password.ToString(), connection))
+                if( false || checkLoginData(username.Text.ToString(), password.Password.ToString(), connection))
 
 
                 {   
                     Client client = getClientObj(username.Text.ToString(), password.Password.ToString(), connection);
-                    if (true || client.name == username.Text.ToString() )
+                    if (false || client.name == username.Text.ToString() )
                     {
                        Store store = new Store(client);
                         store.Show();

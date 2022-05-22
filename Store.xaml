@@ -13,7 +13,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Image x:Name="selectedImage" HorizontalAlignment="Left" Height="174" Margin="10,206,0,0" VerticalAlignment="Top" Width="143" Source="/No-Image-Placeholder.png"/>
-        <Button x:Name="add2CartBtn" Content="Add to cart" HorizontalAlignment="Left" Height="29" Margin="175,351,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="add2CartBtn" Content="Add to cart" HorizontalAlignment="Left" Height="29" Margin="175,351,0,0" VerticalAlignment="Top" Width="75" Click="add2CartBtn_Click"/>
         <Label x:Name="selectedTitle" Content="Title: " HorizontalAlignment="Left" Height="25" Margin="175,206,0,0" VerticalAlignment="Top" Width="127"/>
         <Label x:Name="selectedPrice" Content="Price: " HorizontalAlignment="Left" Height="25" Margin="175,275,0,0" VerticalAlignment="Top" Width="127"/>
         <Button x:Name="logOutBtn" Content="Log Out" HorizontalAlignment="Left" Height="30" Margin="382,351,0,0" VerticalAlignment="Top" Width="108" Click="logOutBtn_Click"/>

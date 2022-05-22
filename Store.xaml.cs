@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.Threading;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Collections.Specialized;
 
 namespace BookStore
 {
@@ -26,36 +27,84 @@ namespace BookStore
     
     public partial class Store : Window
     {
-        public class ViewBook
-        {
-            public string Title { get; set; }  
-            public float Price { get; set; }
-
-            public ViewBook(string t, float p)
-            {
-                Title = t;
-                Price = p;
-            }
-        }
+        public Client currentClient { get; set; }      
+        
         List<Book> books = new List<Book>();
-       public ObservableCollection<ViewBook> CollectionSource { get; set; }   
+       public ObservableCollection<BookView> CollectionSource { get; set; }   
 
         string connectionString = ConfigurationManager.ConnectionStrings["BookStore.Properties.Settings.BookStoreConnectionString"].ConnectionString;
         public Store(Client client)
         {
-
-            CollectionSource = new ObservableCollection<ViewBook>();
+            currentClient = client;
+            CollectionSource = new ObservableCollection<BookView>();
+            currentClient.books.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(CollectionChangedMethod);
             InitializeComponent();
             loadBooks();
         }
 
+        private bool existsInCart(int bookId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+
+                    
+                    SqlCommand checkCommand = new SqlCommand( "select * from Selections where bookId = @bookID and clientId=@clientID", conn);
+                    checkCommand.Parameters.AddWithValue("@bookID", bookId);
+                    checkCommand.Parameters.AddWithValue("@clientID", currentClient.id);
+                  
+                    conn.Open();
+                    SqlDataReader reader = checkCommand.ExecuteReader();
+
+                    if( reader.HasRows && reader.Read())
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return true;
+            }
+        }
+        private void CollectionChangedMethod(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            //different kind of changes that may have occurred in collection
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        int bookId = books[bookListGrid.SelectedIndex].Id;
+                        SqlCommand insertCommand = new SqlCommand(String.Format("Insert into Selections values({0}, {1})",
+                            bookId, currentClient.id), conn);
+                        conn.Open();
+                        insertCommand.ExecuteNonQuery();
+                    }
+                    //MessageWindow mes = new MessageWindow("Book added to cart", "Success");
+                    MessageBox.Show("Book added to cart successfully");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            
+        }
         private BitmapImage LoadImageFromFile(string filename)
         {
             return new BitmapImage(new Uri(filename));
         }
         private void go2Cart_Click(object sender, RoutedEventArgs e)
         {
-            Cart cart = new Cart();
+            Cart cart = new Cart(currentClient, connectionString);
             cart.Show();
             this.Close(); // close current window
         }
@@ -90,7 +139,7 @@ namespace BookStore
                         Book book = new Book(id, title, price, imgUri);
                         books.Add(book);
                         //var b = ;
-                        CollectionSource.Add(new ViewBook(title, price));
+                        CollectionSource.Add(new BookView(title, price));
                         
                     }
                 }
@@ -103,9 +152,24 @@ namespace BookStore
         private void bookListGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int index = bookListGrid.SelectedIndex;
+            if (index == -1) { return; }
             selectedImage.Source = LoadImageFromFile(books[index].imageURI);
             selectedPrice.Content = "Price: " + books[index].price + " TL";
             selectedTitle.Content = "Title: " + books[index].Title;
         }
-    }
+
+        private void add2CartBtn_Click(object sender, RoutedEventArgs e)
+        {
+            int index = bookListGrid.SelectedIndex;
+            if (!existsInCart(books[index].Id))
+            {
+                currentClient.books.Add(books[index]);
+            }
+            else
+            {
+                MessageBox.Show("Selected book is already in your cart!");
+            }
+
+            }
+        }
 }

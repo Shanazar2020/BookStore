@@ -7,10 +7,9 @@
         mc:Ignorable="d"
         Title="Cart" Height="325" Width="625">
     <Grid>
-        <DataGrid x:Name="cartGrid" Margin="10,10,190,96">
+        <DataGrid x:Name="cartGrid" Margin="10,10,190,96" ColumnWidth="*">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Title" Width="250" />
-                <DataGridTextColumn Header="Price" Width="100" />
+                
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="removeSelBtn" Content="Remove the selected book" HorizontalAlignment="Left" Height="30" Margin="442,92,0,0" VerticalAlignment="Top" Width="161"/>
