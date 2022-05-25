@@ -25,21 +25,31 @@ namespace BookStore
         public List<int> bookIds { get; set; }
         public string connectionString { get; set; }
 
-        public ObservableCollection<BookView> bookViews { get; set; } 
+        public ObservableCollection<BookView> bookViews { get; set; }
+
+        double currentPrice = 0;
         public Cart(Client client, string conn)
         {
             connectionString = conn;
             currentClient = client;
+            
+            currentClient.books = new ObservableCollection<Book>();
             bookIds = new List<int>();
             bookViews = new ObservableCollection<BookView>();
             loadSelections();
-            loadBooks();
             InitializeComponent();
+            loadBooks();
 
-
+            customerName.Content = currentClient.name;
+            
            
         }
 
+
+        private void updatePrice()
+        {
+            currentCost.Content = String.Format("Current cost: {0}", currentPrice);
+        }
         private void loadSelections()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -63,20 +73,28 @@ namespace BookStore
 
             string strIds = String.Format( "({0})", string.Join(",", bookIds));
 
+                MessageBox.Show(strIds);
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-
-                SqlCommand cmd = new SqlCommand("select * from Book where Id in @idList", connection);
-
-                cmd.Parameters.AddWithValue("@idList", strIds);
+                SqlCommand cmd = new SqlCommand(String.Format("select * from Book where Id in {0}", strIds), connection);
+               // MessageBox.Show(cmd.CommandText);
+               // return; 
+                //cmd.Parameters.AddWithValue("@idList", strIds);
                 connection.Open();
 
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.HasRows && reader.Read())
                 {
-                    Book book = new Book(reader.GetInt32(0), reader.GetString(1), reader.GetFloat(2), reader.GetString(3));
+                    int id = Convert.ToInt32(reader["Id"]);
+                    string title = Convert.ToString(reader["title"]);
+                    float price = Convert.ToSingle(reader["price"]);
+                    string imgUri = Convert.ToString(reader["img"]);
+                    
+                    Book book = new Book(id, title, price, imgUri);
                     currentClient.books.Add(book);
                     bookViews.Add(new BookView(book.Title, book.price));
+
+                    currentPrice += price;
                 }
 
             }
@@ -84,6 +102,18 @@ namespace BookStore
             cartGrid.ItemsSource = bookViews;
         }
         private void goBackBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Store store = new Store(currentClient);
+            store.Show();
+            this.Close();
+        }
+
+        private void buyAllbtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("All books in your cart have been purchased.", "Thank you for purchasing.", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void removeSelBtn_Click(object sender, RoutedEventArgs e)
         {
 
         }

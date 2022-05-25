@@ -7,17 +7,17 @@
         mc:Ignorable="d"
         Title="Cart" Height="325" Width="625">
     <Grid>
-        <DataGrid x:Name="cartGrid" Margin="10,10,190,96" ColumnWidth="*">
+        <DataGrid x:Name="cartGrid" Margin="10,10,190,96" ColumnWidth="*" >
             <DataGrid.Columns>
                 
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="removeSelBtn" Content="Remove the selected book" HorizontalAlignment="Left" Height="30" Margin="442,92,0,0" VerticalAlignment="Top" Width="161"/>
+        <Button x:Name="removeSelBtn" Content="Remove the selected book" HorizontalAlignment="Left" Height="30" Margin="442,92,0,0" VerticalAlignment="Top" Width="161" Click="removeSelBtn_Click"/>
         <Button x:Name="removeAllBtn" Content="Remove all the books" HorizontalAlignment="Left" Height="30" Margin="442,0,0,0" VerticalAlignment="Center" Width="161"/>
         <Label x:Name="currentCost" Content="Current Cost: 0" HorizontalAlignment="Left" Height="30" Margin="442,183,0,0" VerticalAlignment="Top" Width="161" FontWeight="Bold"/>
         <Button x:Name="goBackBtn" Content="Go back to the store ⬅" HorizontalAlignment="Left" Height="30" Margin="10,240,0,0" VerticalAlignment="Top" Width="161" Click="goBackBtn_Click"/>
-        <Button x:Name="buyAllbtn" Content="Buy all the books" HorizontalAlignment="Left" Height="30" Margin="442,240,0,0" VerticalAlignment="Top" Width="161"/>
-        <Label x:Name="customerName" Content="Altan Samet Aldeniz" HorizontalAlignment="Left" Margin="440,20,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Arial Rounded MT Bold" FontWeight="Bold" FontStyle="Normal" RenderTransformOrigin="1.073,0.377"/>
+        <Button x:Name="buyAllbtn" Content="Buy all the books" HorizontalAlignment="Left" Height="30" Margin="442,240,0,0" VerticalAlignment="Top" Width="161" Click="buyAllbtn_Click"/>
+        <Label x:Name="customerName" Content="" HorizontalAlignment="Left" Margin="440,20,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Arial Rounded MT Bold" FontWeight="Bold" FontStyle="Normal" RenderTransformOrigin="1.073,0.377"/>
 
     </Grid>
 </Window>
