@@ -5,19 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookStore"
         mc:Ignorable="d"
-        Title="Cart" Height="325" Width="625">
+        Title="Cart" Height="325" Width="680">
     <Grid>
+<<<<<<< HEAD
         <DataGrid x:Name="cartGrid" Margin="10,10,190,96" ColumnWidth="*" >
+=======
+        <DataGrid x:Name="cartGrid" Margin="10,10,250,96" ColumnWidth="*">
+>>>>>>> 0f4d0508352bae680bde8ba0f465363b2525af8d
             <DataGrid.Columns>
-                
+
             </DataGrid.Columns>
         </DataGrid>
+<<<<<<< HEAD
         <Button x:Name="removeSelBtn" Content="Remove the selected book" HorizontalAlignment="Left" Height="30" Margin="442,92,0,0" VerticalAlignment="Top" Width="161" Click="removeSelBtn_Click"/>
         <Button x:Name="removeAllBtn" Content="Remove all the books" HorizontalAlignment="Left" Height="30" Margin="442,0,0,0" VerticalAlignment="Center" Width="161"/>
         <Label x:Name="currentCost" Content="Current Cost: 0" HorizontalAlignment="Left" Height="30" Margin="442,183,0,0" VerticalAlignment="Top" Width="161" FontWeight="Bold"/>
         <Button x:Name="goBackBtn" Content="Go back to the store ⬅" HorizontalAlignment="Left" Height="30" Margin="10,240,0,0" VerticalAlignment="Top" Width="161" Click="goBackBtn_Click"/>
         <Button x:Name="buyAllbtn" Content="Buy all the books" HorizontalAlignment="Left" Height="30" Margin="442,240,0,0" VerticalAlignment="Top" Width="161" Click="buyAllbtn_Click"/>
         <Label x:Name="customerName" Content="" HorizontalAlignment="Left" Margin="440,20,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Arial Rounded MT Bold" FontWeight="Bold" FontStyle="Normal" RenderTransformOrigin="1.073,0.377"/>
+=======
+        <Button x:Name="removeSelBtn" Content="Remove the selected book" HorizontalAlignment="Left" Height="30" Margin="491,92,0,0" VerticalAlignment="Top" Width="161"/>
+        <Button x:Name="removeAllBtn" Content="Remove all the books" HorizontalAlignment="Left" Height="30" Margin="491,0,0,0" VerticalAlignment="Center" Width="161"/>
+        <Label x:Name="currentCost" Content="Current Cost: 0" HorizontalAlignment="Left" Height="30" Margin="491,183,0,0" VerticalAlignment="Top" Width="161" FontWeight="Bold"/>
+        <Button x:Name="goBackBtn" Content="Go back to the store ⬅" HorizontalAlignment="Left" Height="30" Margin="10,240,0,0" VerticalAlignment="Top" Width="161" Click="goBackBtn_Click"/>
+        <Button x:Name="buyAllbtn" Content="Buy all the books" HorizontalAlignment="Left" Height="30" Margin="491,240,0,0" VerticalAlignment="Top" Width="161"/>
+        <Label x:Name="customerName" Content="Altan Samet Aldeniz" HorizontalContentAlignment="Center" Margin="416,20,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Arial Rounded MT Bold" FontWeight="Bold" FontStyle="Normal" RenderTransformOrigin="1.073,0.377" Width="236"/>
+>>>>>>> 0f4d0508352bae680bde8ba0f465363b2525af8d
 
     </Grid>
 </Window>
