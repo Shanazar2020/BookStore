@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookStore"
         mc:Ignorable="d"
-        Title="Login" Height="400" Width="400">
+        Title="On Board" Height="400" Width="400">
     <StackPanel Margin="60">
         <Label Content="Login" FontSize="25" Height="45" Width="78" FontWeight="Bold" RenderTransformOrigin="0.332,0.023"/>
         <Separator></Separator>
