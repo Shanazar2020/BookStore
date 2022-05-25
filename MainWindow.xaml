@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="On Board" Height="400" Width="400">
     <StackPanel Margin="60">
-        <Label Content="Welcome" FontSize="25" Height="45" Width="182" FontWeight="Bold" RenderTransformOrigin="0.332,0.023" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label Content="Welcome" FontSize="25" Height="45" Width="120" FontWeight="Bold" RenderTransformOrigin="0.332,0.023"/>
         <Separator></Separator>
         <Label Content="Username"  />
         <TextBox Name="username" FontSize="18" />
