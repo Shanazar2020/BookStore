@@ -5,18 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookStore"
         mc:Ignorable="d"
-        Title="Book Store" Height="450" Width="525">
+        Title="Book Store" Height="570" Width="700">
     <Grid RenderTransformOrigin="0.501,0.499">
-        <DataGrid x:Name="bookListGrid" Margin="10,10,140,246" ColumnWidth="*" SelectionChanged="bookListGrid_SelectionChanged">
+        <DataGrid x:Name="bookListGrid" Margin="10,10,10,212" ColumnWidth="*" SelectionChanged="bookListGrid_SelectionChanged">
             <DataGrid.Columns>
-                
+
             </DataGrid.Columns>
         </DataGrid>
-        <Image x:Name="selectedImage" HorizontalAlignment="Left" Height="174" Margin="10,206,0,0" VerticalAlignment="Top" Width="143" Source="/No-Image-Placeholder.png"/>
-        <Button x:Name="add2CartBtn" Content="Add to cart" HorizontalAlignment="Left" Height="29" Margin="175,351,0,0" VerticalAlignment="Top" Width="75" Click="add2CartBtn_Click"/>
-        <Label x:Name="selectedTitle" Content="Title: " HorizontalAlignment="Left" Height="25" Margin="175,206,0,0" VerticalAlignment="Top" Width="127"/>
-        <Label x:Name="selectedPrice" Content="Price: " HorizontalAlignment="Left" Height="25" Margin="175,275,0,0" VerticalAlignment="Top" Width="127"/>
-        <Button x:Name="logOutBtn" Content="Log Out" HorizontalAlignment="Left" Height="30" Margin="382,351,0,0" VerticalAlignment="Top" Width="108" Click="logOutBtn_Click"/>
-        <Button x:Name="go2CartBtn" Content="Go to cart" HorizontalAlignment="Left" Height="30" Margin="382,293,0,0" VerticalAlignment="Top" Width="108" Click="go2Cart_Click"/>
+        <Image x:Name="selectedImage" HorizontalAlignment="Left" Height="174" Margin="10,363,0,0" VerticalAlignment="Top" Width="141" Source="/No-Image-Placeholder.png"/>
+        <Button x:Name="add2CartBtn" Content="Add to cart" HorizontalAlignment="Left" Height="29" Margin="238,507,0,0" VerticalAlignment="Top" Width="76" Click="add2CartBtn_Click"/>
+        <Label x:Name="selectedTitle" Content="Title: " HorizontalAlignment="Left" Height="25" Margin="212,363,0,0" VerticalAlignment="Top" Width="128"/>
+        <Label x:Name="selectedPrice" Content="Price: " HorizontalAlignment="Left" Height="26" Margin="212,437,0,0" VerticalAlignment="Top" Width="128"/>
+        <Button x:Name="logOutBtn" Content="Log Out" HorizontalAlignment="Left" Height="30" Margin="582,502,0,0" VerticalAlignment="Top" Width="108" Click="logOutBtn_Click"/>
+        <Button x:Name="go2CartBtn" Content="Go to cart" HorizontalAlignment="Left" Height="30" Margin="582,363,0,0" VerticalAlignment="Top" Width="108" Click="go2Cart_Click"/>
     </Grid>
 </Window>
